@@ -1,0 +1,9 @@
+{
+  "name": "dindincoin",
+  "version": "1.0.0",
+  "description": "coin using blockchain",
+  "main": "index.js",
+  "author": "Samer Kayali <samerkkr@gmail.com>",
+  "license": "MIT",
+  "private": false
+}
