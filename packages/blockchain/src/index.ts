@@ -2,4 +2,4 @@ import { Blockchain } from "./Blockchain";
 
 const blockchain = new Blockchain();
 
-console.log(blockchain);
+console.log(blockchain.proofOfWork(25));
