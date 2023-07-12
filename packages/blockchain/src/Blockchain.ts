@@ -49,4 +49,16 @@ export class Blockchain {
     }
     return newProof;
   }
+
+  hash(block: Record<string, any>) {
+    const ordered = Object.keys(block)
+      .sort()
+      .reduce((obj: Record<string, any>, key) => {
+        obj[key] = block[key];
+        return obj;
+      }, {});
+    const encodedBlock = JSON.stringify(ordered);
+    const hash = createHash("sha256");
+    return hash.update(encodedBlock).digest("hex");
+  }
 }
