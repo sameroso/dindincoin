@@ -85,5 +85,6 @@ export class Blockchain {
       const hashOperation = this.generateHashOperation(proof, previousProof);
       if (!this.isOperationValid(hashOperation)) return false;
     }
+    return true;
   }
 }
