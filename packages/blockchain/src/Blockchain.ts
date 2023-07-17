@@ -14,7 +14,7 @@ export class Blockchain {
     this.createBlock();
   }
 
-  private createBlock(proof = 1, previousHash = "0") {
+  createBlock(proof = 1, previousHash = "0") {
     const block: Block = {
       index: this.chain.length + 1,
       timeStamp: new Date().toISOString(),
