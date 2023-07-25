@@ -17,6 +17,15 @@ http
       );
       return;
     }
+    if(req.url==='/checkChainValidity'){
+      const chain = blockchain.rawBlockchain
+      const isBlockchainValid = blockchain.isChainValid(chain)
+      res.end(
+        `<h1>Dindincoin Blockchain</h1>
+        <h2>${isBlockchainValid?'Your Blockchain is valid':'Your Blokchain is invalid'}</h2>`
+      );
+      return  
+    }
     res.end(
       `<h1>Dindincoin Blockchain</h1>
       <h2>Blockchain completa</h2>
