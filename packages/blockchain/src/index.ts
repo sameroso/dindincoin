@@ -11,11 +11,16 @@ http
       const previousHash = blockchain.hash(blockchain.previousBlock);
       const proof = blockchain.proofOfWork(previousProof);
 
-      blockchain.createBlock(proof, previousHash);
+      const block = blockchain.createBlock(proof, previousHash);
+      res.end(
+        `<div><h1>Bloco minerado!</h1><h2>${JSON.stringify(block)}></h2></div>`
+      );
+      return;
     }
     res.end(
       `<h1>Dindincoin Blockchain</h1>
-      <h2>${JSON.stringify(blockchain.previousBlock)}</h2>`
+      <h2>Blockchain completa</h2>
+      <h2>${JSON.stringify(blockchain.rawBlockchain)}</h2>`
     );
   })
   .listen(3035, () => {

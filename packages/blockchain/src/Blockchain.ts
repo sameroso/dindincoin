@@ -14,6 +14,10 @@ export class Blockchain {
     this.createBlock();
   }
 
+  get rawBlockchain() {
+    return [...this.chain];
+  }
+
   createBlock(proof = 1, previousHash = "0") {
     const block: Block = {
       index: this.chain.length + 1,
