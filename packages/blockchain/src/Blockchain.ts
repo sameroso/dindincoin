@@ -1,14 +1,22 @@
 import { createHash } from "crypto";
 
+interface Transaction {
+  sender: string;
+  receiver: string;
+  ammount: number;
+}
+
 interface Block {
   index: number;
   timeStamp: string;
   proof: number;
   previousHash: string;
+  transactions: Transaction[];
 }
 
 export class Blockchain {
   private chain: Block[] = [];
+  private transactions: Transaction[] = [];
 
   constructor() {
     this.createBlock();
@@ -24,9 +32,11 @@ export class Blockchain {
       timeStamp: new Date().toISOString(),
       proof,
       previousHash,
+      transactions: this.transactions,
     };
 
     this.chain.push(block);
+    this.transactions = [];
     return block;
   }
 
@@ -90,5 +100,10 @@ export class Blockchain {
       if (!this.isOperationValid(hashOperation)) return false;
     }
     return true;
+  }
+
+  addTransaction(transaction: Transaction) {
+    this.transactions.push(transaction);
+    return this.previousBlock["index"] + 1;
   }
 }
