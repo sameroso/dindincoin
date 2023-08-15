@@ -17,6 +17,7 @@ interface Block {
 export class Blockchain {
   private chain: Block[] = [];
   private transactions: Transaction[] = [];
+  private nodes = new Set<string>();
 
   constructor() {
     this.createBlock();
@@ -105,5 +106,10 @@ export class Blockchain {
   addTransaction(transaction: Transaction) {
     this.transactions.push(transaction);
     return this.previousBlock["index"] + 1;
+  }
+
+  addNode(address: string) {
+    const host = new URL(address).host
+    this.nodes.add(host);
   }
 }
