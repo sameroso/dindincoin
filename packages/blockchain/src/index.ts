@@ -17,20 +17,24 @@ http
       );
       return;
     }
-    if(req.url==='/checkChainValidity'){
-      const chain = blockchain.rawBlockchain
-      const isBlockchainValid = blockchain.isChainValid(chain)
+    if (req.url === "/checkChainValidity") {
+      const chain = blockchain.rawBlockchain;
+      const isBlockchainValid = blockchain.isChainValid(chain);
       res.end(
         `<h1>Dindincoin Blockchain</h1>
-        <h2>${isBlockchainValid?'Your Blockchain is valid':'Your Blokchain is invalid'}</h2>`
+        <h2>${
+          isBlockchainValid
+            ? "Your Blockchain is valid"
+            : "Your Blokchain is invalid"
+        }</h2>`
       );
-      return  
+      return;
     }
-    res.end(
-      `<h1>Dindincoin Blockchain</h1>
-      <h2>Blockchain completa</h2>
-      <h2>${JSON.stringify(blockchain.rawBlockchain)}</h2>`
-    );
+
+    if (req.url === "/getChain") {
+      res.end(JSON.stringify(blockchain.rawBlockchain));
+    }
+    
   })
   .listen(3035, () => {
     console.log("listening on port 3035");

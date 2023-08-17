@@ -109,7 +109,39 @@ export class Blockchain {
   }
 
   addNode(address: string) {
-    const host = new URL(address).host
+    const host = new URL(address).host;
     this.nodes.add(host);
+  }
+
+  replaceChain() {
+    const network = this.nodes;
+    let longestChain = null;
+    let maxLength = this.chain.length;
+
+    network.forEach(async (node) => {
+      try {
+        const response: Response = await fetch(`http://${node}/getChain`);
+        const network: Block[] = await response.json();
+        const chain = network;
+        const length = network.length;
+
+        if (length > maxLength && this.isChainValid(chain)) {
+          longestChain = chain;
+          maxLength = length;
+        }
+        
+      } catch (err) {
+        throw new Error(
+          `Failed to fetch node ${node} with error ${JSON.stringify(err)}`
+        );
+      }
+    });
+
+    if (longestChain) {
+      this.chain = longestChain;
+      return true;
+    }
+
+    return false;
   }
 }
