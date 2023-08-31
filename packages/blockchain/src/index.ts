@@ -60,6 +60,29 @@ http
         res.end(JSON.stringify({ ...transaction }));
       });
     }
+
+    if (
+      req.url === "/connectNode" &&
+      (req.method === "post" || req.method === "POST")
+    ) {
+      let body = "";
+      req.on("data", (chunk) => {
+        body += chunk.toString();
+      });
+      req.on("end", () => {
+        const nodeList: string[] = JSON.parse(body);
+        nodeList.forEach((node) => {
+          blockchain.addNode(node);
+        });
+        res.statusCode = 200;
+        res.end(
+          JSON.stringify({
+            message: "Todos Nós Conectados",
+            totalNodes: blockchain.nodeList,
+          })
+        );
+      });
+    }
   })
   .listen(3035, () => {
     console.log("listening on port 3035");

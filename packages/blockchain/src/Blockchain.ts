@@ -27,6 +27,12 @@ export class Blockchain {
     return [...this.chain];
   }
 
+  get nodeList() {
+    const arr: string[] = [];
+    this.nodes.forEach((val) => arr.push(val));
+    return arr;
+  }
+
   createBlock(proof = 1, previousHash = "0") {
     const block: Block = {
       index: this.chain.length + 1,
@@ -129,7 +135,6 @@ export class Blockchain {
           longestChain = chain;
           maxLength = length;
         }
-        
       } catch (err) {
         throw new Error(
           `Failed to fetch node ${node} with error ${JSON.stringify(err)}`
