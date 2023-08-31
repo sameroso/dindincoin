@@ -1,6 +1,6 @@
 import { createHash } from "crypto";
 
-interface Transaction {
+export interface Transaction {
   sender: string;
   receiver: string;
   ammount: number;
